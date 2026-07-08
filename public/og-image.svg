@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">AI時代の経営管理基盤を再構築する</title>
+  <desc id="desc">AIを活用した経営管理高度化のコンセプトサイト用OGP画像</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a" />
+      <stop offset="0.48" stop-color="#164e63" />
+      <stop offset="1" stop-color="#312e81" />
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5eead4" />
+      <stop offset="1" stop-color="#fbbf24" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <g opacity="0.2" fill="none" stroke="#ffffff">
+    <path d="M92 496C246 365 384 340 514 420s266 74 408-56c58-53 116-86 180-98" stroke-width="4" />
+    <path d="M92 142h1016M92 242h1016M92 342h1016M92 442h1016" stroke-width="1" />
+    <path d="M210 78v480M430 78v480M650 78v480M870 78v480M1090 78v480" stroke-width="1" />
+  </g>
+  <g transform="translate(92 92)">
+    <rect x="0" y="0" width="176" height="44" rx="22" fill="#ffffff" opacity="0.12" />
+    <text x="22" y="29" fill="#e0f2fe" font-family="Arial, sans-serif" font-size="18" font-weight="700">AI x FP&amp;A</text>
+    <text x="0" y="154" fill="#ffffff" font-family="Arial, sans-serif" font-size="66" font-weight="800">AI時代の経営管理基盤を</text>
+    <text x="0" y="236" fill="#ffffff" font-family="Arial, sans-serif" font-size="66" font-weight="800">再構築する</text>
+    <rect x="0" y="288" width="520" height="6" rx="3" fill="url(#line)" />
+    <text x="0" y="360" fill="#dbeafe" font-family="Arial, sans-serif" font-size="28" font-weight="600">予実・見込・KPI・会議体・AIをつなぐ</text>
+    <text x="0" y="406" fill="#dbeafe" font-family="Arial, sans-serif" font-size="28" font-weight="600">経営/FP&amp;A向けコンセプトサイト</text>
+  </g>
+  <g transform="translate(835 120)">
+    <rect x="0" y="0" width="210" height="120" rx="16" fill="#ffffff" opacity="0.13" />
+    <rect x="-52" y="158" width="314" height="120" rx="16" fill="#ffffff" opacity="0.18" />
+    <rect x="-105" y="316" width="420" height="120" rx="16" fill="#ffffff" opacity="0.13" />
+    <path d="M105 120v38M105 278v38" stroke="#5eead4" stroke-width="7" stroke-linecap="round" />
+    <circle cx="105" cy="60" r="18" fill="#fbbf24" />
+    <circle cx="105" cy="218" r="18" fill="#5eead4" />
+    <circle cx="105" cy="376" r="18" fill="#93c5fd" />
+  </g>
+</svg>
