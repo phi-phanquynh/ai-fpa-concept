@@ -126,6 +126,23 @@ async function waitForHash(page, slug) {
   await page.waitForFunction((expected) => window.location.hash === `#${expected}`, slug);
 }
 
+async function assertAndDismissProjectionGuide(page, label) {
+  const dialog = page.getByRole("dialog");
+  await dialog.waitFor({ state: "visible" });
+
+  assert.equal(await dialog.count(), 1, `${label}: exactly one projection guide dialog opens automatically`);
+  assert.equal(await dialog.getAttribute("aria-modal"), "true", `${label}: projection guide is modal`);
+  await dialog.getByText(/ブラウザで開く/u).waitFor({ state: "visible" });
+  await dialog.getByText(/Teams/u).waitFor({ state: "visible" });
+  await dialog.getByText(/F11/u).waitFor({ state: "visible" });
+
+  const closeButton = dialog.getByRole("button", { name: /閉じる/u });
+  assert.equal(await closeButton.count(), 1, `${label}: projection guide exposes one close button`);
+  await closeButton.click();
+  await dialog.waitFor({ state: "hidden" });
+  assert.equal(await dialog.isVisible(), false, `${label}: projection guide closes`);
+}
+
 async function assertLayoutAndType(page, label) {
   const audit = await page.evaluate(() => {
     const minimumFontSize = 18;
@@ -289,7 +306,11 @@ async function runViewport(browser, view) {
 
   for (const panel of panels) {
     const label = `${viewportLabel} #${panel.slug}`;
-    await page.goto(`${standaloneUrl}#${panel.slug}`, { waitUntil: "load" });
+    const directUrl = new URL(standaloneUrl);
+    directUrl.searchParams.set("qa-entry", `${viewportLabel}-${panel.slug}`);
+    directUrl.hash = panel.slug;
+    await page.goto(directUrl.href, { waitUntil: "load" });
+    await assertAndDismissProjectionGuide(page, label);
     await assertPanel(page, panel, label);
     console.log(`✓ ${label}`);
   }
@@ -304,6 +325,7 @@ async function runInteractionFlow(browser) {
   const assertRuntimeClean = observeRuntime(page, "interaction flow");
 
   await page.goto(`${standaloneUrl}#ai`, { waitUntil: "load" });
+  await assertAndDismissProjectionGuide(page, "interaction initial state");
   await assertPanel(page, panels[0], "interaction initial state");
 
   await page.getByRole("tab", { name: panels[1].tab, exact: true }).click();

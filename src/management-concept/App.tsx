@@ -5,7 +5,9 @@ import {
   ChartNoAxesCombined,
   GitBranch,
   Lightbulb,
+  Maximize2,
   MessageSquareText,
+  Monitor,
   ScanSearch,
   Search,
   Target,
@@ -377,6 +379,9 @@ function ApproachPanel() {
 
 export default function ManagementConceptApp() {
   const [activePanel, setActivePanel] = useState<PanelId>(() => getPanelFromHash());
+  const [isPresentationGuideOpen, setIsPresentationGuideOpen] = useState(
+    () => window.location.protocol === "file:",
+  );
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
   useEffect(() => {
@@ -392,6 +397,17 @@ export default function ManagementConceptApp() {
       window.removeEventListener("popstate", syncHash);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isPresentationGuideOpen) return;
+
+    const closeOnEscape = (event: globalThis.KeyboardEvent) => {
+      if (event.key === "Escape") setIsPresentationGuideOpen(false);
+    };
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [isPresentationGuideOpen]);
 
   const activeIndex = useMemo(
     () => tabs.findIndex((tab) => tab.id === activePanel),
@@ -491,6 +507,56 @@ export default function ManagementConceptApp() {
           </section>
         );
       })}
+
+      {isPresentationGuideOpen && (
+        <div className="presentation-guide" data-qa="presentation-guide">
+          <section
+            className="presentation-guide__dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="presentation-guide-title"
+            aria-describedby="presentation-guide-description"
+          >
+            <p className="presentation-guide__eyebrow">PRESENTATION GUIDE</p>
+            <h2 id="presentation-guide-title">この資料はブラウザでの閲覧・投影用です</h2>
+            <p className="presentation-guide__description" id="presentation-guide-description">
+              見やすい表示とスムーズな操作のため、ブラウザで開いてご利用ください。
+            </p>
+
+            <div className="presentation-guide__steps">
+              <article className="presentation-guide__step">
+                <span className="presentation-guide__icon" aria-hidden="true">
+                  <Monitor />
+                </span>
+                <div>
+                  <strong>Teamsで開いている場合</strong>
+                  <p>「ブラウザで開く」を選択して、表示し直してください。</p>
+                </div>
+              </article>
+
+              <article className="presentation-guide__step">
+                <span className="presentation-guide__icon" aria-hidden="true">
+                  <Maximize2 />
+                </span>
+                <div>
+                  <strong>投影時は F11</strong>
+                  <p>ブラウザを全画面表示に切り替えられます。</p>
+                </div>
+              </article>
+            </div>
+
+            <button
+              className="presentation-guide__close"
+              type="button"
+              autoFocus
+              aria-label="案内を閉じる（資料を表示する）"
+              onClick={() => setIsPresentationGuideOpen(false)}
+            >
+              資料を表示する
+            </button>
+          </section>
+        </div>
+      )}
     </main>
   );
 }
