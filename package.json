@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build && node scripts/check-public-config.mjs",
+    "build:standalone": "node scripts/build-management-standalone.mjs",
     "preview": "vite preview --host 127.0.0.1",
+    "qa:management-concept": "node scripts/qa-management-concept.mjs",
+    "qa:management-standalone": "node scripts/qa-management-standalone.mjs",
     "verify:local": "node scripts/check-public-config.mjs"
   },
   "dependencies": {
